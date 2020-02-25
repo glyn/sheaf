@@ -66,3 +66,13 @@ func FindImages(r io.Reader) (images.Set, error) {
 
 	return imgs, nil
 }
+
+func filterEmpty(ss []string) []string {
+	result := []string{}
+	for _, s := range ss {
+		if s != "" {
+			result = append(result, s)
+		}
+	}
+	return result
+}

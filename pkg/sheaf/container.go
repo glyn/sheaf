@@ -22,6 +22,7 @@ import (
 	"io/ioutil"
 
 	"github.com/bryanl/sheaf/pkg/images"
+	"github.com/bryanl/sheaf/pkg/json"
 )
 
 // ContainerImages returns images from containers in manifest path
@@ -33,14 +34,4 @@ func ContainerImages(manifestPath string) (images.Set, error) {
 
 	r := bytes.NewReader(data)
 	return json.FindImages(r)
-}
-
-func filterEmpty(ss []string) []string {
-	result := []string{}
-	for _, s := range ss {
-		if s != "" {
-			result = append(result, s)
-		}
-	}
-	return result
 }
