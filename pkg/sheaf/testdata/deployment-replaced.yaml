@@ -17,3 +17,9 @@ spec:
           image: example.com/nginx:1.7.9
           ports:
             - containerPort: 80
+      containers:
+        - name: nginy
+          image: example.com/nginx:1.7.9
+          ports:
+            - containerPort: 81
+      

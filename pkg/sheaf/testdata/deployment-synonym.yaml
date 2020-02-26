@@ -17,3 +17,9 @@ spec:
           image: library/nginx:1.7.9
           ports:
             - containerPort: 80
+      containers:
+        - name: nginy
+          image: docker.io/library/nginx:1.7.9
+          ports:
+            - containerPort: 81
+      
