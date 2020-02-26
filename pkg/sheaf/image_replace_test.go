@@ -23,7 +23,6 @@ import (
 
 	"github.com/pivotal/image-relocation/pkg/image"
 	"github.com/stretchr/testify/require"
-	"gopkg.in/yaml.v3"
 )
 
 func TestReplaceImage(t *testing.T) {
@@ -74,27 +73,10 @@ func TestReplaceImage(t *testing.T) {
 				mapping[oldName] = newName
 			}
 
-			var updatedManifest yaml.Node
-			err := yaml.Unmarshal(replaceImage(manifest, mapping), &updatedManifest)
-			if err != nil {
-				t.Fatal(err)
-			}
-			updatedManifestNormalised, err := yaml.Marshal(&updatedManifest)
-			if err != nil {
-				t.Fatal(err)
-			}
+			updatedManifest := string(replaceImage(manifest, mapping))
+			expectedManifest := string(readTestData(tt.expectedPath, t))
 
-			var expectedManifest yaml.Node
-			err = yaml.Unmarshal(readTestData(tt.expectedPath, t), &expectedManifest)
-			if err != nil {
-				t.Fatal(err)
-			}
-			expectedManifestNormalised, err := yaml.Marshal(&expectedManifest)
-			if err != nil {
-				t.Fatal(err)
-			}
-
-			require.Equal(t, string(expectedManifestNormalised), string(updatedManifestNormalised))
+			require.Equal(t, expectedManifest, updatedManifest)
 		})
 	}
 }
